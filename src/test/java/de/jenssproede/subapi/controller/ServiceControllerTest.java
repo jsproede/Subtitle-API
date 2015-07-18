@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import de.jenssproede.subapi.pojo.Episode;
 import de.jenssproede.subapi.pojo.Season;
 import de.jenssproede.subapi.pojo.Series;
 import de.jenssproede.subapi.service.IService;
@@ -59,15 +60,20 @@ public class ServiceControllerTest {
     }
 
     @Test
-    public void getHTMLSourceFromTV4UserService() {
+    public void testTV4UserServiceIfReturnValuesAreAsExpected() {
         IService service = Services.getInstance().getService(TV4USER);
         assertNotNull(service);
 
-        List<Series> seriesList = service.searchSeries("Breaking Bad");
-        assertEquals("299", seriesList.get(0).getLink());
+        List<Series> seriesList = service.searchSeries("Mr. Robot");
+        assertEquals("1338", seriesList.get(0).getLink());
 
         List<Season> seasonList = service.searchSeasons(seriesList.get(0));
         Collections.sort(seasonList);
-        System.out.println(seasonList);
+        assertEquals("Mr. Robot - Staffel 1 [DE-Subs:03] + [US-Subs:04]", seasonList.get(0).getSeasonName());
+
+        List<Episode> episodeList = service.searchEpisodes(seasonList.get(0));
+        for (Episode e : episodeList) {
+            System.out.println(e);
+        }
     }
 }

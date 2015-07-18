@@ -1,6 +1,7 @@
 package de.jenssproede.subapi.controller;
 
 import de.jenssproede.subapi.data.ServiceHolder;
+import de.jenssproede.subapi.pojo.Episode;
 import de.jenssproede.subapi.pojo.Season;
 import de.jenssproede.subapi.pojo.Series;
 import de.jenssproede.subapi.service.IService;
@@ -51,6 +52,16 @@ public class ServiceController {
     public List<Season> searchSeasons(@RequestParam String token, @RequestParam Series series) {
         if (ServiceHolder.tokenExists(token)) {
             return ServiceHolder.getService(token).searchSeasons(series);
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    @RequestMapping(value = "/searchEpisodes", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Episode> searchEpisodes(@RequestParam String token, @RequestParam Season season) {
+        if (ServiceHolder.tokenExists(token)) {
+            return ServiceHolder.getService(token).searchEpisodes(season);
         } else {
             return Collections.emptyList();
         }
