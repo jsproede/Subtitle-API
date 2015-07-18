@@ -35,7 +35,7 @@ public class TV4User extends AbstractService {
 
             Series s;
             for (Element element : elements) {
-                s = new Series(element.text(), element.attr("value"));
+                s = new Series(element.text(), element.val());
                 seriesList.add(s);
             }
         }
@@ -45,6 +45,7 @@ public class TV4User extends AbstractService {
 
     @Override
     public List<Season> searchSeasons(Series series) {
+        System.out.println(series);
         List<Season> seasonList = new ArrayList<>();
         Document document = HTMLParser.getInstance().getDocument(String.format(BOARD_URI, series.getLink()));
         Element table = document.getElementsByClass("tablelist").first();
@@ -67,17 +68,44 @@ public class TV4User extends AbstractService {
         Elements tables = document.select("table");
 
         Elements rows;
+        Elements head;
         Episode e;
-        List<Resolution> resolutionList;
+        List<String> resolutionHeader = new ArrayList<>();
+        int tableCounter = 0;
         for (Element table : tables) {
+            tableCounter++;
             rows = table.select("tbody tr");
+            head = rows.first().select("td");
+            for (int i = 1; i < head.size(); i++) {
+                Element col = head.get(i);
+                if (col.text().equalsIgnoreCase("subber")) {
+                    break;
+                } else {
+                    resolutionHeader.add(col.text());
+                }
+            }
+
+            rows.remove(0);
 
             for (Element row : rows) {
                 e = new Episode();
 
+                if (tableCounter == 1) {
+                    e.setLanguage("German");
+                } else {
+                    e.setLanguage("English");
+                }
+
                 e.setEpisodeName(row.select("td.episode").first().text());
 
-                // TODO: Resolution, language and download links
+                for (int i = 3; i < 3 + resolutionHeader.size(); i++) {
+                    Resolution resolution = new Resolution();
+                    resolution.setResolution(resolutionHeader.get(i - 3));
+                    resolution.setName(row.select("td:nth-child(3) a").text());
+                    resolution.setLink(row.select("td:nth-child(3) a").attr("href"));
+
+                    e.getResolutions().add(resolution);
+                }
 
                 episodeList.add(e);
             }

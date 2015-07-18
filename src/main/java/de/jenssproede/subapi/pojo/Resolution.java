@@ -15,6 +15,9 @@ public class Resolution {
     @JsonProperty
     private String link;
 
+    public Resolution() {
+    }
+
     public Resolution(String resolution, String name, String link) {
         this.resolution = resolution;
         this.name = name;

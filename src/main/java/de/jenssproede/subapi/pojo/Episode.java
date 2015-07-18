@@ -3,6 +3,7 @@ package de.jenssproede.subapi.pojo;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonAutoDetect
@@ -18,6 +19,7 @@ public class Episode {
     private List<Resolution> resolutions;
 
     public Episode() {
+        resolutions = new ArrayList<>();
     }
 
     public String getEpisodeName() {

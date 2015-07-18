@@ -49,8 +49,9 @@ public class ServiceController {
 
     @RequestMapping(value = "/searchSeasons", method = RequestMethod.POST)
     @ResponseBody
-    public List<Season> searchSeasons(@RequestParam String token, @RequestParam Series series) {
+    public List<Season> searchSeasons(@RequestParam String token, @RequestParam String name, @RequestParam String link) {
         if (ServiceHolder.tokenExists(token)) {
+            Series series = new Series(name, link);
             return ServiceHolder.getService(token).searchSeasons(series);
         } else {
             return Collections.emptyList();
@@ -59,8 +60,9 @@ public class ServiceController {
 
     @RequestMapping(value = "/searchEpisodes", method = RequestMethod.POST)
     @ResponseBody
-    public List<Episode> searchEpisodes(@RequestParam String token, @RequestParam Season season) {
+    public List<Episode> searchEpisodes(@RequestParam String token, @RequestParam String name, @RequestParam String link) {
         if (ServiceHolder.tokenExists(token)) {
+            Season season = new Season(name, link);
             return ServiceHolder.getService(token).searchEpisodes(season);
         } else {
             return Collections.emptyList();
