@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Created by .ignore support plugin (hsz.mobi)
 ### Gradle template
 .gradle
@@ -69,6 +70,8 @@ crashlytics-build.properties
 
 
 ### Java template
+=======
+>>>>>>> f109bb253e73b3dd7ffdf5fe3bd09c4f441b6c4b
 *.class
 
 # Mobile Tools for Java (J2ME)
@@ -81,5 +84,8 @@ crashlytics-build.properties
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f109bb253e73b3dd7ffdf5fe3bd09c4f441b6c4b
