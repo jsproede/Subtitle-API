@@ -24,4 +24,12 @@ public class Series {
     public String getLink() {
         return link;
     }
+
+    @Override
+    public String toString() {
+        return "Series{" +
+                "name='" + name + '\'' +
+                ", link='" + link + '\'' +
+                '}';
+    }
 }

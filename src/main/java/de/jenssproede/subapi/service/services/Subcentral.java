@@ -19,7 +19,7 @@ public class Subcentral extends AbstractService {
     }
 
     @Override
-    public List<String> searchSeasons(String season) {
+    public List<String> searchSeasons(Series series) {
 
         return null;
     }

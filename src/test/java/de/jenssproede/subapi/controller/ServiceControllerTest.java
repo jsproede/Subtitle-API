@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import de.jenssproede.subapi.pojo.Series;
+import de.jenssproede.subapi.service.IService;
 import de.jenssproede.subapi.service.Services;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,11 +22,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = MockServletContext.class)
 @WebAppConfiguration
 public class ServiceControllerTest {
 
+    public static final String TV4USER = "TV4User";
     private MockMvc mvc;
 
     @Before
@@ -47,8 +52,18 @@ public class ServiceControllerTest {
 
     @Test
     public void getCorrectService() {
-        String service = "tv4user";
-        assertNotNull(Services.getInstance().getService(service));
-        assertEquals("TV4User", Services.getInstance().getService(service).getClass().getSimpleName());
+        assertNotNull(Services.getInstance().getService(TV4USER));
+        assertEquals(TV4USER, Services.getInstance().getService(TV4USER).getClass().getSimpleName());
+    }
+
+    @Test
+    public void getHTMLSourceFromTV4UserService() {
+        IService service = Services.getInstance().getService(TV4USER);
+        assertNotNull(service);
+
+        List<Series> seriesList = service.searchSeries("Breaking Bad");
+        assertEquals("299", seriesList.get(0).getLink());
+
+        service.searchSeasons(seriesList.get(0));
     }
 }

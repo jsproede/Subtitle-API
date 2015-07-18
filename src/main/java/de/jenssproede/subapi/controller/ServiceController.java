@@ -45,6 +45,16 @@ public class ServiceController {
         }
     }
 
+    @RequestMapping(value = "/searchSeasons", method = RequestMethod.POST)
+    @ResponseBody
+    public List<String> searchSeasons(@RequestParam String token, @RequestParam Series series) {
+        if (ServiceHolder.tokenExists(token)) {
+            return ServiceHolder.getService(token).searchSeasons(series);
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
     @RequestMapping(value = "/services", method = { RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
     public List<String> getServices() {
