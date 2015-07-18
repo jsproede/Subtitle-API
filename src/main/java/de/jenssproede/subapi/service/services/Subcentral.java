@@ -1,5 +1,6 @@
 package de.jenssproede.subapi.service.services;
 
+import de.jenssproede.subapi.pojo.Season;
 import de.jenssproede.subapi.pojo.Series;
 import de.jenssproede.subapi.service.AbstractService;
 
@@ -19,7 +20,7 @@ public class Subcentral extends AbstractService {
     }
 
     @Override
-    public List<String> searchSeasons(Series series) {
+    public List<Season> searchSeasons(Series series) {
 
         return null;
     }

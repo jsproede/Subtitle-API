@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import de.jenssproede.subapi.pojo.Season;
 import de.jenssproede.subapi.pojo.Series;
 import de.jenssproede.subapi.service.IService;
 import de.jenssproede.subapi.service.Services;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Collections;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -64,6 +66,8 @@ public class ServiceControllerTest {
         List<Series> seriesList = service.searchSeries("Breaking Bad");
         assertEquals("299", seriesList.get(0).getLink());
 
-        service.searchSeasons(seriesList.get(0));
+        List<Season> seasonList = service.searchSeasons(seriesList.get(0));
+        Collections.sort(seasonList);
+        System.out.println(seasonList);
     }
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonAutoDetect
-public class Series {
+public class Series implements Comparable<Series> {
 
     @JsonProperty
     private String name;
@@ -31,5 +31,10 @@ public class Series {
                 "name='" + name + '\'' +
                 ", link='" + link + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Series series) {
+        return name.compareTo(series.getName());
     }
 }
